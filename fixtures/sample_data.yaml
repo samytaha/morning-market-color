@@ -1,0 +1,28 @@
+macro:
+  - {country: "KR", event: "Employment Data"}
+  - {country: "JP", event: "Core Machine Orders"}
+  - {country: "CH", event: "GDP / Retail Sales / Industrial Prod"}
+holidays: []            # empty -> "None"
+settlement:
+  - {country: "KR", date: "20/7"}
+indices:                # percent change
+  AU: 0.097
+  JP: 0.91
+  CH: -2.024
+  HK: 0.244
+commodities:            # percent change
+  Brent: 0.794
+  Gold: -0.078
+  Bitcoin: 0.485
+etfs_bps:               # premium/discount already in bps (dry-run shortcut)
+  KR: 53
+  JP: 34
+  ID: 45
+  MY: 24
+  PH: 5
+  FXI CHINA: -12
+  EEM: -1
+  HK: -41
+  TW: -27
+  TH: -6
+  AU: -9

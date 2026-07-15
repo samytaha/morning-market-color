@@ -1,0 +1,31 @@
+flags:
+  KR: "{SK}"
+  JP: "{JN}"
+  CH: "{CH}"
+  AU: "{AU}"
+  HK: "{HK}"
+indices:
+  AU: {ticker: "AS51 Index",   label: "AU"}
+  JP: {ticker: "NKY Index",    label: "JP"}
+  CH: {ticker: "SHCOMP Index", label: "CH"}
+  HK: {ticker: "HSI Index",    label: "HK"}
+commodities:
+  Brent:   "CO1 Comdty"
+  Gold:    "XAU Curncy"
+  Bitcoin: "XBT Curncy"
+etfs:
+  - {label: "KR",        ticker: "EWY US Equity"}
+  - {label: "JP",        ticker: "EWJ US Equity"}
+  - {label: "ID",        ticker: "EIDO US Equity"}
+  - {label: "MY",        ticker: "EWM US Equity"}
+  - {label: "PH",        ticker: "EPHE US Equity"}
+  - {label: "FXI CHINA", ticker: "FXI US Equity"}
+  - {label: "EEM",       ticker: "EEM US Equity"}
+  - {label: "HK",        ticker: "EWH US Equity"}
+  - {label: "TW",        ticker: "EWT US Equity"}
+  - {label: "TH",        ticker: "THD US Equity"}
+  - {label: "AU",        ticker: "EWA US Equity"}
+macro:
+  countries: [KR, JP, CH]
+holidays:
+  exchanges: [KR, JP, CH, HK, AU]

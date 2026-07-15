@@ -22,3 +22,63 @@ def fmt_bps_int(bps: float) -> str:
     rounded = round(bps)
     sign = "+" if rounded >= 0 else "-"
     return f"{sign}{abs(rounded)}"
+
+
+N_A = "N/A"
+
+
+def _flag(cc: str, flags: dict) -> str:
+    return flags.get(cc, "")
+
+
+def _prefix(cc: str, flags: dict) -> str:
+    """'{FLAG} CC' or just 'CC' when no flag configured."""
+    f = _flag(cc, flags)
+    return f"{f} {cc}" if f else cc
+
+
+def build_macro(rows: list[dict], flags: dict) -> str:
+    return "\n".join(f"{_prefix(r['country'], flags)}: {r['event']}" for r in rows)
+
+
+def build_holiday(rows: list[dict], flags: dict) -> str:
+    if not rows:
+        return "* Market Holiday: None"
+    body = "; ".join(f"{_prefix(r['country'], flags)}: {r['name']}" for r in rows)
+    return f"* Market Holiday: {body}"
+
+
+def build_settlement(rows: list[dict], flags: dict) -> str:
+    if not rows:
+        return "* Non-Standard Settlement Days: None"
+    body = "; ".join(f"{_prefix(r['country'], flags)}: {r['date']}" for r in rows)
+    return f"* Non-Standard Settlement Days: {body}"
+
+
+def build_markets(indices: dict, flags: dict, order: list[str]) -> str:
+    parts = []
+    for cc in order:
+        val = indices.get(cc)
+        chg = N_A if val is None else f"{fmt_bps_1dp(val)} bps"
+        parts.append(f"{_prefix(cc, flags)}: {chg}")
+    return " | ".join(parts)
+
+
+def build_commodities(comm: dict, order: list[str]) -> str:
+    parts = []
+    for name in order:
+        val = comm.get(name)
+        chg = N_A if val is None else f"{fmt_bps_1dp(val)} bps"
+        parts.append(f"{name}: {chg}")
+    return "1D Chg - " + " | ".join(parts)
+
+
+def build_etfs(etf_bps: dict, order: list[str]) -> tuple[str, str]:
+    prem, disc = [], []
+    for label in order:
+        val = etf_bps.get(label)
+        if val is None:
+            continue
+        entry = f"{label} {fmt_bps_int(val)}bps"
+        (prem if val >= 0 else disc).append(entry)
+    return "PREMIUM: " + " ".join(prem), "DISCOUNT: " + " ".join(disc)

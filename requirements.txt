@@ -1,0 +1,7 @@
+# Bloomberg data (Windows runtime only; installed separately on the PC — see README)
+blpapi
+xbbg
+PyYAML>=6.0
+pytest>=8.0
+# Windows clipboard helper (no-op import guard on Mac)
+pywin32; sys_platform == "win32"

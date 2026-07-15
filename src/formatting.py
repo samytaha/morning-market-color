@@ -12,8 +12,9 @@ def _drop_trailing_zero(value: float) -> str:
 def fmt_bps_1dp(pct: float) -> str:
     """Percent change -> bps string, 1 decimal, trailing .0 dropped, sign always shown."""
     bps = pct * 100
-    sign = "+" if bps >= 0 else "-"
-    return f"{sign}{_drop_trailing_zero(abs(bps))}"
+    formatted_magnitude = _drop_trailing_zero(abs(bps))
+    sign = "-" if bps < 0 and formatted_magnitude != "0" else "+"
+    return f"{sign}{formatted_magnitude}"
 
 
 def fmt_bps_int(bps: float) -> str:

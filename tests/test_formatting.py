@@ -20,3 +20,6 @@ def test_fmt_bps_int_negative():
 
 def test_fmt_bps_int_rounds():
     assert fmt_bps_int(4.6) == "+5"
+
+def test_fmt_bps_1dp_tiny_negative_is_positive_zero():
+    assert fmt_bps_1dp(-0.00001) == "+0"

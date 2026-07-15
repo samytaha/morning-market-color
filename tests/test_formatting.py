@@ -79,3 +79,14 @@ def test_build_etfs():
     prem, disc = build_etfs(etf_bps, order)
     assert prem == "PREMIUM: KR +53bps JP +34bps ID +45bps MY +24bps PH +5bps"
     assert disc == "DISCOUNT: FXI CHINA -12bps EEM -1bps HK -41bps TW -27bps TH -6bps AU -9bps"
+
+def test_build_etfs_rounded_zero_goes_to_premium():
+    # -0.3 bps rounds to +0 for display; bucket must match the displayed +0 sign
+    prem, disc = build_etfs({"XX": -0.3}, ["XX"])
+    assert prem == "PREMIUM: XX +0bps"
+    assert disc == "DISCOUNT:"
+
+def test_build_etfs_empty_bucket_no_trailing_space():
+    prem, disc = build_etfs({"AA": 12, "BB": 8}, ["AA", "BB"])
+    assert prem == "PREMIUM: AA +12bps BB +8bps"
+    assert disc == "DISCOUNT:"   # no entries, no trailing space

@@ -79,6 +79,9 @@ def build_etfs(etf_bps: dict, order: list[str]) -> tuple[str, str]:
         val = etf_bps.get(label)
         if val is None:
             continue
+        r = round(val)
         entry = f"{label} {fmt_bps_int(val)}bps"
-        (prem if val >= 0 else disc).append(entry)
-    return "PREMIUM: " + " ".join(prem), "DISCOUNT: " + " ".join(disc)
+        (prem if r >= 0 else disc).append(entry)
+    prem_line = ("PREMIUM: " + " ".join(prem)) if prem else "PREMIUM:"
+    disc_line = ("DISCOUNT: " + " ".join(disc)) if disc else "DISCOUNT:"
+    return prem_line, disc_line

@@ -51,10 +51,11 @@ def fetch_live(config: dict) -> dict:
         label: {"px": _cell(etf_df, t, "PX_LAST"), "nav": _cell(etf_df, t, "FUND_NET_ASSET_VAL")}
         for t, label in etf_tickers.items()
     }
+    from src.sections import calendar_live
     return {
-        "macro": [],          # populated by macro.py via calendar query (Task 5)
-        "holidays": [],       # populated by holidays.py (Task 5)
-        "settlement": [],     # populated by settlement.py (Task 5)
+        "macro": calendar_live.fetch_macro(config),
+        "holidays": calendar_live.fetch_holidays(config),
+        "settlement": calendar_live.fetch_settlement(config),
         "indices": indices,
         "commodities": commodities,
         "etf_prices": etf_prices,
